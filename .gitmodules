@@ -1,0 +1,27 @@
+[submodule "ArcticDB"]
+	path = ArcticDB
+	url = https://github.com/man-group/ArcticDB.git
+[submodule "Lean"]
+	path = Lean
+	url = https://github.com/QuantConnect/Lean.git
+[submodule "RD-Agent"]
+	path = RD-Agent
+	url = https://github.com/microsoft/RD-Agent.git
+[submodule "Riskfolio-Lib"]
+	path = Riskfolio-Lib
+	url = https://github.com/dcajasn/Riskfolio-Lib.git
+[submodule "mlfinlab"]
+	path = mlfinlab
+	url = https://github.com/hudson-and-thames/mlfinlab.git
+[submodule "nautilus_trader"]
+	path = nautilus_trader
+	url = https://github.com/nautechsystems/nautilus_trader.git
+[submodule "openalgo"]
+	path = openalgo
+	url = https://github.com/marketcalls/openalgo.git
+[submodule "qlib"]
+	path = qlib
+	url = https://github.com/microsoft/qlib.git
+[submodule "vectorbt"]
+	path = vectorbt
+	url = https://github.com/polakowo/vectorbt.git

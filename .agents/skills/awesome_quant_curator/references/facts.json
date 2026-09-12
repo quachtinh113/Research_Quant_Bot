@@ -1,0 +1,152 @@
+{
+  "name": "awesome-quant curated index",
+  "root": "D:\\05_Quant\\merg\\agent_quant_master\\awesome-quant",
+  "total_files": 52,
+  "total_bytes": 1658061,
+  "python_requires": ">=3.11",
+  "frameworks": [
+    "pandas (dataframes)"
+  ],
+  "packages": [
+    "tests"
+  ],
+  "entry_points": [],
+  "dependencies": {
+    "python": [
+      "PyGithub",
+      "mypy",
+      "pandas"
+    ]
+  },
+  "top_dirs": [
+    [
+      "(root)",
+      16,
+      342206
+    ],
+    [
+      "tests",
+      9,
+      109954
+    ],
+    [
+      ".claude",
+      6,
+      21762
+    ],
+    [
+      "scripts",
+      6,
+      92361
+    ],
+    [
+      ".agents",
+      5,
+      18931
+    ],
+    [
+      "site",
+      5,
+      1066750
+    ],
+    [
+      ".github",
+      4,
+      3907
+    ],
+    [
+      "docs",
+      1,
+      2190
+    ]
+  ],
+  "largest_modules": [
+    [
+      "tests/test_review_pr.py",
+      1301
+    ],
+    [
+      "tests/test_audit_readme.py",
+      1040
+    ],
+    [
+      "scripts/review_pr.py",
+      797
+    ],
+    [
+      "scripts/audit_readme.py",
+      540
+    ],
+    [
+      "site/generate.py",
+      512
+    ],
+    [
+      "scripts/migrate_readme.py",
+      447
+    ],
+    [
+      "scripts/url_probe.py",
+      419
+    ],
+    [
+      "scripts/validate_readme.py",
+      379
+    ],
+    [
+      "tests/test_url_probe.py",
+      329
+    ],
+    [
+      "parse.py",
+      286
+    ],
+    [
+      ".claude/skills/update-pypi-dates/scripts/check_pypi_dates.py",
+      155
+    ],
+    [
+      "scripts/readme_entries.py",
+      132
+    ],
+    [
+      ".agents/skills/update-pypi-dates/scripts/check_pypi_dates.py",
+      112
+    ],
+    [
+      "tests/test_historical_projects.py",
+      84
+    ],
+    [
+      "cranscrape.py",
+      77
+    ],
+    [
+      "tests/test_pr_review_workflow.py",
+      56
+    ],
+    [
+      "tests/test_readme_audit_workflow.py",
+      52
+    ],
+    [
+      "tests/test_readme_entries.py",
+      50
+    ],
+    [
+      "tests/test_review_documentation.py",
+      50
+    ],
+    [
+      "topic.py",
+      26
+    ],
+    [
+      "tests/__init__.py",
+      2
+    ]
+  ],
+  "notebook_count": 1,
+  "git_remote": "https://github.com/wilsonfreitas/awesome-quant.git",
+  "git_head": "ref: refs/heads/main"
+}

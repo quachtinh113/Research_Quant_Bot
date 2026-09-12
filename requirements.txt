@@ -1,0 +1,24 @@
+# Runtime dependencies for the orchestration package (d:/05_Quant/Agent_Fund_Quant).
+# The vendored repositories (qlib, vectorbt, Lean, nautilus_trader, openalgo, ...)
+# carry their own requirement files and are not installed by this list.
+
+pydantic>=2.6
+pydantic-settings>=2.2
+numpy>=1.26
+pandas>=2.1
+scipy>=1.11
+polars>=0.20
+pyarrow>=14.0
+ccxt>=4.3
+httpx>=0.27
+websockets>=12.0
+
+# Primary engines (fallbacks are used automatically when these are absent)
+arcticdb>=4.5          # point-in-time store; Parquet/Polars fallback otherwise
+riskfolio-lib>=6.0     # HRP / CVaR allocator; native HRP fallback otherwise
+
+# Optional
+redis>=5.0             # RedisStateStore backend
+
+# Tests
+pytest>=8.0

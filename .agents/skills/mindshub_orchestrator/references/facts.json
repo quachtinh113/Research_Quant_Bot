@@ -1,0 +1,94 @@
+{
+  "name": "MindsHub orchestration harness",
+  "root": "D:\\05_Quant\\merg\\agent_quant_master\\quant_bot",
+  "total_files": 15,
+  "total_bytes": 70543,
+  "python_requires": "",
+  "frameworks": [
+    "pandas (dataframes)",
+    "NumPy (arrays)",
+    "yfinance (Yahoo market data)"
+  ],
+  "packages": [
+    "agents"
+  ],
+  "entry_points": [],
+  "dependencies": {},
+  "top_dirs": [
+    [
+      "agents",
+      8,
+      38386
+    ],
+    [
+      "(root)",
+      7,
+      32157
+    ]
+  ],
+  "largest_modules": [
+    [
+      "agents/builder_agent.py",
+      277
+    ],
+    [
+      "report_generator.py",
+      238
+    ],
+    [
+      "agents/mentor_agent.py",
+      220
+    ],
+    [
+      "bot.py",
+      133
+    ],
+    [
+      "orchestrator.py",
+      127
+    ],
+    [
+      "data_engine.py",
+      119
+    ],
+    [
+      "empirical_proof.py",
+      96
+    ],
+    [
+      "agents/qlib_agent.py",
+      81
+    ],
+    [
+      "agents/vectorbt_agent.py",
+      79
+    ],
+    [
+      "agents/lean_agent.py",
+      75
+    ],
+    [
+      "agents/awesome_quant_agent.py",
+      71
+    ],
+    [
+      "agents/base_agent.py",
+      44
+    ],
+    [
+      "sync_mindshub.py",
+      43
+    ],
+    [
+      "agents/__init__.py",
+      18
+    ],
+    [
+      "__init__.py",
+      11
+    ]
+  ],
+  "notebook_count": 0,
+  "git_remote": "",
+  "git_head": ""
+}

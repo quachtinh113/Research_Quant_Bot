@@ -1,0 +1,217 @@
+{
+  "name": "vectorbt",
+  "root": "D:\\05_Quant\\merg\\agent_quant_master\\vectorbt",
+  "total_files": 297,
+  "total_bytes": 147140917,
+  "python_requires": ">=3.11,<3.15",
+  "frameworks": [
+    "scikit-learn (classical ML)",
+    "Numba (JIT compilation)",
+    "pandas (dataframes)",
+    "NumPy (arrays)",
+    "SciPy (scientific computing)",
+    "Plotly (interactive charts)",
+    "Matplotlib (static charts)",
+    "QuantStats (tear sheets)",
+    "vectorbt (vectorised backtesting)",
+    "CCXT (crypto exchange APIs)",
+    "yfinance (Yahoo market data)",
+    "pytest (testing)",
+    "TA-Lib (technical indicators)"
+  ],
+  "packages": [
+    "tests",
+    "vectorbt",
+    "vectorbt/base",
+    "vectorbt/data",
+    "vectorbt/generic",
+    "vectorbt/indicators",
+    "vectorbt/labels",
+    "vectorbt/messaging",
+    "vectorbt/portfolio",
+    "vectorbt/records",
+    "vectorbt/returns",
+    "vectorbt/signals",
+    "vectorbt/utils"
+  ],
+  "entry_points": [],
+  "dependencies": {
+    "python": [
+      "Flask-Caching",
+      "TA-Lib",
+      "anywidget",
+      "dash",
+      "dash-bootstrap-components",
+      "dateparser",
+      "dill",
+      "imageio",
+      "ipywidgets",
+      "matplotlib",
+      "mypy_extensions",
+      "numba",
+      "numpy",
+      "pandas",
+      "plotly",
+      "pytz",
+      "requests",
+      "schedule",
+      "scikit-learn",
+      "scipy",
+      "tqdm",
+      "vectorbt",
+      "yfinance"
+    ]
+  },
+  "top_dirs": [
+    [
+      "docs",
+      115,
+      62541764
+    ],
+    [
+      "vectorbt",
+      98,
+      2467053
+    ],
+    [
+      "tests",
+      28,
+      9548740
+    ],
+    [
+      "rust",
+      13,
+      554015
+    ],
+    [
+      "(root)",
+      11,
+      29946
+    ],
+    [
+      "examples",
+      11,
+      69664136
+    ],
+    [
+      "apps",
+      10,
+      2091729
+    ],
+    [
+      "benchmarks",
+      6,
+      229931
+    ],
+    [
+      ".github",
+      5,
+      13603
+    ]
+  ],
+  "largest_modules": [
+    [
+      "tests/test_portfolio.py",
+      10832
+    ],
+    [
+      "vectorbt/portfolio/nb.py",
+      7014
+    ],
+    [
+      "vectorbt/portfolio/base.py",
+      5774
+    ],
+    [
+      "tests/test_records.py",
+      4732
+    ],
+    [
+      "tests/test_signals.py",
+      4091
+    ],
+    [
+      "vectorbt/indicators/factory.py",
+      3958
+    ],
+    [
+      "tests/test_indicators.py",
+      3217
+    ],
+    [
+      "vectorbt/generic/accessors.py",
+      2858
+    ],
+    [
+      "benchmarks/bench_engine.py",
+      2790
+    ],
+    [
+      "tests/test_base.py",
+      2748
+    ],
+    [
+      "tests/test_engine.py",
+      2545
+    ],
+    [
+      "tests/test_utils.py",
+      2508
+    ],
+    [
+      "vectorbt/generic/nb.py",
+      1994
+    ],
+    [
+      "vectorbt/signals/accessors.py",
+      1993
+    ],
+    [
+      "vectorbt/generic/dispatch.py",
+      1954
+    ],
+    [
+      "vectorbt/portfolio/dispatch.py",
+      1931
+    ],
+    [
+      "vectorbt/portfolio/enums.py",
+      1877
+    ],
+    [
+      "apps/candlestick-patterns/app.py",
+      1644
+    ],
+    [
+      "tests/test_generic.py",
+      1625
+    ],
+    [
+      "vectorbt/portfolio/trades.py",
+      1492
+    ],
+    [
+      "vectorbt/returns/accessors.py",
+      1482
+    ],
+    [
+      "tests/test_plotting.py",
+      1431
+    ],
+    [
+      "vectorbt/signals/nb.py",
+      1319
+    ],
+    [
+      "docs/generate_api.py",
+      1268
+    ],
+    [
+      "vectorbt/signals/dispatch.py",
+      1216
+    ]
+  ],
+  "notebook_count": 21,
+  "git_remote": "https://github.com/polakowo/vectorbt.git",
+  "git_head": "ref: refs/heads/master"
+}

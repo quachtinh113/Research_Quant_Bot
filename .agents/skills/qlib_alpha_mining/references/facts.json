@@ -1,0 +1,300 @@
+{
+  "name": "Microsoft Qlib",
+  "root": "D:\\05_Quant\\merg\\agent_quant_master\\qlib",
+  "total_files": 619,
+  "total_bytes": 8216018,
+  "python_requires": ">=3.8.0",
+  "frameworks": [
+    "LightGBM (gradient boosting)",
+    "XGBoost (gradient boosting)",
+    "CatBoost (gradient boosting)",
+    "PyTorch (deep learning)",
+    "TensorFlow (deep learning)",
+    "scikit-learn (classical ML)",
+    "pandas (dataframes)",
+    "NumPy (arrays)",
+    "SciPy (scientific computing)",
+    "statsmodels (econometrics)",
+    "CVXPY (convex optimisation)",
+    "MLflow (experiment tracking)",
+    "Optuna (hyper-parameter search)",
+    "Plotly (interactive charts)",
+    "Matplotlib (static charts)",
+    "Tianshou (deep RL)",
+    "Gym / Gymnasium (RL environments)",
+    "Redis (cache / message bus)",
+    "MongoDB driver",
+    "pytest (testing)"
+  ],
+  "packages": [
+    "examples/benchmarks/TFT/data_formatters",
+    "examples/benchmarks/TFT/expt_settings",
+    "examples/benchmarks/TFT/libs",
+    "qlib",
+    "qlib/backtest",
+    "qlib/cli",
+    "qlib/contrib",
+    "qlib/contrib/data",
+    "qlib/contrib/data/utils",
+    "qlib/contrib/eva",
+    "qlib/contrib/meta",
+    "qlib/contrib/meta/data_selection",
+    "qlib/contrib/model",
+    "qlib/contrib/online",
+    "qlib/contrib/ops",
+    "qlib/contrib/report",
+    "qlib/contrib/report/analysis_model",
+    "qlib/contrib/report/analysis_position",
+    "qlib/contrib/report/data",
+    "qlib/contrib/rolling",
+    "qlib/contrib/strategy",
+    "qlib/contrib/strategy/optimizer",
+    "qlib/contrib/tuner",
+    "qlib/contrib/workflow",
+    "qlib/data",
+    "qlib/data/_libs",
+    "qlib/data/dataset",
+    "qlib/data/storage",
+    "qlib/model",
+    "qlib/model/ens",
+    "qlib/model/interpret",
+    "qlib/model/meta",
+    "qlib/model/riskmodel",
+    "qlib/rl",
+    "qlib/rl/contrib",
+    "qlib/rl/data",
+    "qlib/rl/order_execution",
+    "qlib/rl/strategy",
+    "qlib/rl/trainer",
+    "qlib/rl/utils",
+    "qlib/strategy",
+    "qlib/tests",
+    "qlib/utils",
+    "qlib/workflow",
+    "qlib/workflow/online",
+    "qlib/workflow/task"
+  ],
+  "entry_points": [
+    "qrun"
+  ],
+  "dependencies": {
+    "python": [
+      "Cython",
+      "PySocks",
+      "akshare",
+      "async-generator",
+      "attrs",
+      "baostock",
+      "beautifulsoup4",
+      "bs4",
+      "catboost",
+      "certifi",
+      "cffi",
+      "charset-normalizer",
+      "cmake",
+      "cryptography",
+      "cvxpy",
+      "dill",
+      "fake-useragent",
+      "filelock",
+      "fire",
+      "gym",
+      "h11",
+      "idna",
+      "joblib",
+      "jupyter",
+      "lightgbm",
+      "loguru",
+      "lxml",
+      "matplotlib",
+      "mlflow",
+      "multitasking",
+      "nbconvert",
+      "numpy",
+      "openpyxl",
+      "optuna",
+      "optuna-dashboard",
+      "outcome",
+      "pandas",
+      "pyOpenSSL",
+      "pyarrow",
+      "pycoingecko",
+      "pycparser",
+      "pydantic-settings",
+      "pymongo",
+      "pyqlib",
+      "python-dateutil",
+      "python-redis-lock",
+      "pytz",
+      "pyyaml",
+      "redis",
+      "requests",
+      "requests-futures",
+      "ruamel.yaml",
+      "scikit-learn",
+      "scikit_learn",
+      "scipy",
+      "seaborn",
+      "setuptools-scm",
+      "six",
+      "sniffio",
+      "sortedcontainers",
+      "soupsieve",
+      "sphinx_rtd_theme",
+      "tensorflow-gpu",
+      "termcolor",
+      "tianshou",
+      "torch",
+      "tqdm",
+      "trio",
+      "trio-websocket",
+      "urllib3",
+      "wget",
+      "wsproto",
+      "xgboost",
+      "yahooquery"
+    ]
+  },
+  "top_dirs": [
+    [
+      "qlib",
+      234,
+      2089569
+    ],
+    [
+      "examples",
+      192,
+      1499202
+    ],
+    [
+      "docs",
+      77,
+      4091350
+    ],
+    [
+      "scripts",
+      43,
+      274973
+    ],
+    [
+      "tests",
+      40,
+      147631
+    ],
+    [
+      "(root)",
+      20,
+      74626
+    ],
+    [
+      ".github",
+      13,
+      38667
+    ]
+  ],
+  "largest_modules": [
+    [
+      "qlib/data/ops.py",
+      1682
+    ],
+    [
+      "qlib/data/data.py",
+      1333
+    ],
+    [
+      "examples/benchmarks/TFT/libs/tft_model.py",
+      1278
+    ],
+    [
+      "qlib/data/cache.py",
+      1200
+    ],
+    [
+      "scripts/data_collector/yahoo/collector.py",
+      1018
+    ],
+    [
+      "qlib/utils/__init__.py",
+      962
+    ],
+    [
+      "qlib/backtest/exchange.py",
+      959
+    ],
+    [
+      "qlib/contrib/model/pytorch_tra.py",
+      931
+    ],
+    [
+      "scripts/data_collector/utils.py",
+      839
+    ],
+    [
+      "qlib/contrib/model/pytorch_adarnn.py",
+      791
+    ],
+    [
+      "qlib/data/dataset/handler.py",
+      786
+    ],
+    [
+      "qlib/data/dataset/__init__.py",
+      723
+    ],
+    [
+      "qlib/workflow/record_temp.py",
+      694
+    ],
+    [
+      "qlib/workflow/__init__.py",
+      682
+    ],
+    [
+      "qlib/contrib/strategy/rule_strategy.py",
+      673
+    ],
+    [
+      "qlib/backtest/high_performance_ds.py",
+      659
+    ],
+    [
+      "qlib/utils/index_data.py",
+      655
+    ],
+    [
+      "qlib/backtest/report.py",
+      652
+    ],
+    [
+      "qlib/contrib/model/pytorch_tabnet.py",
+      644
+    ],
+    [
+      "qlib/backtest/executor.py",
+      629
+    ],
+    [
+      "qlib/model/trainer.py",
+      620
+    ],
+    [
+      "qlib/contrib/model/pytorch_add.py",
+      598
+    ],
+    [
+      "qlib/backtest/decision.py",
+      597
+    ],
+    [
+      "examples/benchmarks/TRA/src/model.py",
+      594
+    ],
+    [
+      "qlib/backtest/position.py",
+      566
+    ]
+  ],
+  "notebook_count": 4,
+  "git_remote": "https://github.com/microsoft/qlib.git",
+  "git_head": "ref: refs/heads/main"
+}

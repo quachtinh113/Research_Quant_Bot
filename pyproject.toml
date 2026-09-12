@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-fund-quant"
+version = "3.0.0"
+description = "Institutional Dual-Agent Quantitative Research & Multi-Bot Orchestration Engine"
+authors = [{ name = "Pro Trader" }]
+readme = "AGENTS.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "pydantic>=2.0.0",
+    "pyyaml>=6.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["orchestration*"]

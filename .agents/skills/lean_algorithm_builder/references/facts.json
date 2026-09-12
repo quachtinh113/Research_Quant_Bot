@@ -1,0 +1,188 @@
+{
+  "name": "QuantConnect LEAN",
+  "root": "D:\\05_Quant\\merg\\agent_quant_master\\Lean",
+  "total_files": 3066,
+  "total_bytes": 19841916,
+  "python_requires": "",
+  "frameworks": [
+    "PyTorch (deep learning)",
+    "TensorFlow (deep learning)",
+    "Keras (deep learning)",
+    "scikit-learn (classical ML)",
+    "pandas (dataframes)",
+    "NumPy (arrays)",
+    "SciPy (scientific computing)",
+    "Matplotlib (static charts)",
+    "TA-Lib (technical indicators)"
+  ],
+  "packages": [],
+  "entry_points": [],
+  "dependencies": {},
+  "top_dirs": [
+    [
+      "Common",
+      1883,
+      12612240
+    ],
+    [
+      "Algorithm.Python",
+      461,
+      1650579
+    ],
+    [
+      "Engine",
+      233,
+      1773818
+    ],
+    [
+      "Indicators",
+      232,
+      1372369
+    ],
+    [
+      "Algorithm.Framework",
+      86,
+      539641
+    ],
+    [
+      "Algorithm",
+      58,
+      1166037
+    ],
+    [
+      "Report",
+      54,
+      321567
+    ],
+    [
+      "(root)",
+      23,
+      116686
+    ],
+    [
+      "Optimizer",
+      18,
+      89149
+    ],
+    [
+      "Configuration",
+      9,
+      53021
+    ],
+    [
+      "Api",
+      5,
+      94452
+    ],
+    [
+      "Launcher",
+      4,
+      52357
+    ]
+  ],
+  "largest_modules": [
+    [
+      "Report/ReportCharts.py",
+      1149
+    ],
+    [
+      "Algorithm.Python/OrderTicketDemoAlgorithm.py",
+      467
+    ],
+    [
+      "Algorithm.Python/Benchmarks/EmptyMinute400EquityBenchmark.py",
+      384
+    ],
+    [
+      "Algorithm.Framework/Portfolio/BlackLittermanOptimizationPortfolioConstructionModel.py",
+      311
+    ],
+    [
+      "find_datasource_repos.py",
+      246
+    ],
+    [
+      "Algorithm.Python/ComboOrderTicketDemoAlgorithm.py",
+      221
+    ],
+    [
+      "Algorithm.Python/Alphas/GasAndCrudeOilEnergyCorrelationAlpha.py",
+      220
+    ],
+    [
+      "Algorithm.Python/Alphas/GreenblattMagicFormulaAlpha.py",
+      212
+    ],
+    [
+      "Algorithm.Python/IndicatorSuiteAlgorithm.py",
+      202
+    ],
+    [
+      "Algorithm.Framework/Portfolio/MeanReversionPortfolioConstructionModel.py",
+      196
+    ],
+    [
+      "Algorithm.Framework/Alphas/BasePairsTradingAlphaModel.py",
+      195
+    ],
+    [
+      "Algorithm.Python/BubbleAlgorithm.py",
+      194
+    ],
+    [
+      "Report/ReportChartTests.py",
+      184
+    ],
+    [
+      "Algorithm.Python/CustomModelsAlgorithm.py",
+      182
+    ],
+    [
+      "Algorithm.Python/DataConsolidationAlgorithm.py",
+      181
+    ],
+    [
+      "Algorithm.Python/Alphas/ContingentClaimsAnalysisDefaultPredictionAlpha.py",
+      180
+    ],
+    [
+      "Algorithm.Python/CustomModelsPEP8Algorithm.py",
+      179
+    ],
+    [
+      "Algorithm.Python/Alphas/VIXDualThrustAlpha.py",
+      178
+    ],
+    [
+      "Algorithm.Framework/Portfolio/MeanVarianceOptimizationPortfolioConstructionModel.py",
+      171
+    ],
+    [
+      "Algorithm.Python/CustomConsolidatorRegressionAlgorithm.py",
+      169
+    ],
+    [
+      "run_syntax_check.py",
+      160
+    ],
+    [
+      "Algorithm.Framework/Execution/VolumeWeightedAveragePriceExecutionModel.py",
+      159
+    ],
+    [
+      "Algorithm.Framework/Portfolio/RiskParityPortfolioConstructionModel.py",
+      159
+    ],
+    [
+      "Algorithm.Python/HistoryAlgorithm.py",
+      159
+    ],
+    [
+      "Algorithm.Python/IndicatorWarmupAlgorithm.py",
+      155
+    ]
+  ],
+  "notebook_count": 0,
+  "git_remote": "https://github.com/QuantConnect/Lean.git",
+  "git_head": "ref: refs/heads/master"
+}
