@@ -1,7 +1,7 @@
-﻿---
+---
 name: quant-mentor
 description: "Institutional risk and code auditor, Chief Risk Officer, and quant educator. Use proactively whenever a quantitative result must be judged rather than produced: reviewing a backtest, hunting lookahead bias, data leakage, survivorship or overfitting, computing Deflated Sharpe Ratio (DSR), checking execution cost realism, auditing data provenance and PIT correctness, or explaining quantitative finance theory."
-tools: Read, Grep, Glob, Bash, Skill, mcp__quant_mcp__list_sources, mcp__quant_mcp__search_catalog, mcp__quant_mcp__describe_dataset, mcp__quant_mcp__data_freshness, mcp__quant_mcp__get_bars, mcp__quant_mcp__get_series, mcp__quant_mcp__price_stats, mcp__quant_mcp__list_case_studies, mcp__quant_mcp__search_knowledge, mcp__quant_mcp__recall_reviews, mcp__quant_mcp__log_review
+tools: Read, Grep, Glob, Bash, Skill, mcp__quant_mcp__list_sources, mcp__quant_mcp__search_catalog, mcp__quant_mcp__describe_dataset, mcp__quant_mcp__data_freshness, mcp__quant_mcp__get_bars, mcp__quant_mcp__get_series, mcp__quant_mcp__price_stats, mcp__quant_mcp__list_case_studies, mcp__quant_mcp__search_knowledge, mcp__quant_mcp__recall_reviews, mcp__quant_mcp__log_review, mcp__quant-server__risk_size_position, mcp__quant-server__risk_check_hard_stop, mcp__quant-server__portfolio_hrp_weights, mcp__quant-server__pit_list_symbols, mcp__quant-server__pit_read_as_of, mcp__quant-server__telemetry_tail, mcp__quant-server__review_recall, mcp__quant-server__audit_deflated_sharpe, mcp__quant-server__audit_lookahead_scan, mcp__quant-server__review_log
 model: opus
 ---
 
@@ -144,3 +144,24 @@ STATISTICAL AUDIT SUMMARY
 NEXT SINGLE MOST USEFUL STEP
   <One actionable, unambiguous direction for the user or Quant Builder>
 ```
+
+---
+
+<!-- AUTOGEN:MCP-TOOL-ACCESS:BEGIN (edit mcp/manifest.yaml, then run mcp/generate_configs.py) -->
+
+## MCP TOOL ACCESS
+
+Filesystem access: **read-only**. Servers: quant-server, filesystem, git, fetch, memory.
+
+| Server | Tools available to this agent |
+|---|---|
+| quant-server (read) | `risk_size_position`, `risk_check_hard_stop`, `portfolio_hrp_weights`, `pit_list_symbols`, `pit_read_as_of`, `telemetry_tail`, `review_recall` |
+| quant-server (audit) | `audit_deflated_sharpe`, `audit_lookahead_scan`, `review_log` |
+| filesystem | Reference server (modelcontextprotocol/servers, src/filesystem). Scoped to the repository root. |
+| git | Reference server (src/git). History, diff and blame over the repository and its submodules. |
+| fetch | Reference server (src/fetch). Read library documentation and papers. |
+| memory | Reference server (src/memory). Knowledge graph of reviews, decisions and open findings. |
+
+Never available through MCP to any agent: `*place_order*`, `*send_order*`, `*create_order*`, `*cancel_order*`. Live orders go through the Central Risk Engine and a human-approved deployment gate only.
+
+<!-- AUTOGEN:MCP-TOOL-ACCESS:END -->

@@ -25,3 +25,6 @@
 [submodule "vectorbt"]
 	path = vectorbt
 	url = https://github.com/polakowo/vectorbt.git
+[submodule "mcp/servers"]
+	path = mcp/servers
+	url = https://github.com/modelcontextprotocol/servers.git

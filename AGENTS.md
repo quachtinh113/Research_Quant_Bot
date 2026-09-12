@@ -83,3 +83,24 @@ The repository code is organized into two symmetrical, institutional subsystems 
 
 ### 3. Backward-Compatibility Facades
 For zero breaking changes across existing callers and test suites, legacy import paths (`orchestration.fleet_orchestrator`, `orchestration.data.*`, `orchestration.pod.*`, `orchestration.risk.*`, `orchestration.execution.*`, etc.) are fully maintained via transparent re-export facades.
+
+---
+
+## MCP TOOL LAYER (quant-builder / quant-mentor)
+
+Both agents are MCP **clients**; the servers do not know which agent calls them, so the safety boundary is the tool list each agent is granted, generated from a single manifest.
+
+| Piece | Location | Role |
+|---|---|---|
+| Manifest (source of truth) | `mcp/manifest.yaml` | Servers, quant-server tool groups (`read`, `build`, `audit`), per-agent grants, forbidden patterns |
+| Generator | `mcp/generate_configs.py` | Writes `.mcp.json` (Claude Code), `.agents/mcp.json` (Antigravity / generic hosts) and the `MCP TOOL ACCESS` block in each agent file. `--check` fails when outputs drift. |
+| quant-server | `mcp/quant_server/server.py` | 13 deterministic tools over `orchestration/`: Central Risk Engine sizing and hard stops, HRP/CVaR, point-in-time reads, paper simulation, declared-grid sweeps, Deflated Sharpe, look-ahead scan, review log |
+| Reference servers | `mcp/servers/` (submodule of `modelcontextprotocol/servers`) | `filesystem`, `git`, `fetch`, `memory`; launched from the published packages via `npx` / `uvx` |
+
+Grants: **quant-builder** = `read` + `build`, read-write filesystem. **quant-mentor** = `read` + `audit`, read-only filesystem. No MCP tool places, sends or cancels orders; `openalgo_build_order` only renders the request body.
+
+```
+python mcp/generate_configs.py          # after editing the manifest
+python mcp/generate_configs.py --check  # CI guard
+pytest tests/test_mcp_quant_server.py   # tool + boundary tests
+```

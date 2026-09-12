@@ -20,5 +20,9 @@ riskfolio-lib>=6.0     # HRP / CVaR allocator; native HRP fallback otherwise
 # Optional
 redis>=5.0             # RedisStateStore backend
 
+# MCP quant-server (mcp/quant_server) and config generator
+mcp>=1.2
+pyyaml>=6.0
+
 # Tests
 pytest>=8.0

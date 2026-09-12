@@ -18,6 +18,8 @@ logs/
 *.sqlite3
 *.mdb
 *.jsonl
+!mcp/reviews.jsonl      # mentor audit trail is part of the repository record
+mcp/memory.jsonl
 
 # Secrets and local config
 .env

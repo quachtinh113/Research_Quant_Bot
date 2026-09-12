@@ -1,0 +1,75 @@
+# Single source of truth for the dual-agent MCP wiring.
+#
+#   python mcp/generate_configs.py
+#
+# regenerates .mcp.json (Claude Code), .agents/mcp.json (Antigravity / generic
+# hosts) and the tool-access section of the two agent definitions. Edit this
+# file, never the generated ones.
+#
+# Path placeholders: {root} = repository root, {python} = .venv interpreter.
+
+servers:
+  quant-server:
+    description: Domain tools wrapping orchestration/ (Central Risk Engine, point-in-time store, HRP, paper simulation, audits).
+    command: "{python}"
+    args: ["{root}/mcp/quant_server/server.py"]
+    env:
+      QUANT_REPO_ROOT: "{root}"
+      PYTHONPATH: "{root}"
+  filesystem:
+    description: Reference server (modelcontextprotocol/servers, src/filesystem). Scoped to the repository root.
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-filesystem", "{root}"]
+  git:
+    description: Reference server (src/git). History, diff and blame over the repository and its submodules.
+    command: uvx
+    args: ["mcp-server-git", "--repository", "{root}"]
+  fetch:
+    description: Reference server (src/fetch). Read library documentation and papers.
+    command: uvx
+    args: ["mcp-server-fetch"]
+  memory:
+    description: Reference server (src/memory). Knowledge graph of reviews, decisions and open findings.
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-memory"]
+    env:
+      MEMORY_FILE_PATH: "{root}/mcp/memory.jsonl"
+
+# Tool groups exposed by quant-server. "read" tools never mutate the repository
+# or send orders; "build" tools produce artefacts; "audit" tools record verdicts.
+quant_server_tools:
+  read:
+    - risk_size_position
+    - risk_check_hard_stop
+    - portfolio_hrp_weights
+    - pit_list_symbols
+    - pit_read_as_of
+    - telemetry_tail
+    - review_recall
+  build:
+    - paper_simulation
+    - ma_cross_sweep
+    - openalgo_build_order
+  audit:
+    - audit_deflated_sharpe
+    - audit_lookahead_scan
+    - review_log
+
+agents:
+  quant-builder:
+    file: ".agents/agents/quant-builder.md"
+    servers: [quant-server, filesystem, git, fetch, memory]
+    quant_server_groups: [read, build]
+    filesystem_access: read-write
+  quant-mentor:
+    file: ".agents/agents/quant-mentor.md"
+    servers: [quant-server, filesystem, git, fetch, memory]
+    quant_server_groups: [read, audit]
+    filesystem_access: read-only
+
+# Never exposed through MCP, by design (workspace guard: no order_send).
+forbidden_tool_patterns:
+  - place_order
+  - send_order
+  - create_order
+  - cancel_order
