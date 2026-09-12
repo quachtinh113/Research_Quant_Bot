@@ -1,6 +1,7 @@
 """
-quant-server MCP tools and manifest consistency: builder/mentor boundaries,
-no order-sending tools, deterministic tool outputs.
+quant-server MCP tools and manifest consistency: builder/mentor boundaries
+across both servers and both agent sources, no order-sending tools,
+deterministic tool outputs.
 """
 
 import importlib.util
@@ -13,6 +14,7 @@ import pytest
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "mcp"))
 
 
 def _load_server():
@@ -33,53 +35,78 @@ def manifest():
     return yaml.safe_load((ROOT / "mcp" / "manifest.yaml").read_text(encoding="utf-8"))
 
 
+@pytest.fixture(scope="module")
+def gc():
+    import generate_configs
+
+    return generate_configs
+
+
 # ------------------------------------------------------------- manifest
 def test_manifest_tools_exist_and_are_grouped(server, manifest):
-    declared = {t for g in manifest["quant_server_tools"].values() for t in g}
+    groups = manifest["tool_groups"]["quant-server"]
+    declared = {t for g in groups.values() for t in g}
     implemented = {fn.__name__ for g in server.TOOLS.values() for fn in g}
     assert declared == implemented
-    for group, names in manifest["quant_server_tools"].items():
+    for group, names in groups.items():
         assert [fn.__name__ for fn in server.TOOLS[group]] == names
 
 
-def test_mentor_is_read_and_audit_only(manifest):
+def test_role_boundaries(manifest, gc):
     mentor = manifest["agents"]["quant-mentor"]
     builder = manifest["agents"]["quant-builder"]
-    assert "build" not in mentor["quant_server_groups"]
-    assert mentor["filesystem_access"] == "read-only"
-    assert "audit" not in builder["quant_server_groups"]
-    assert builder["filesystem_access"] == "read-write"
+    assert "build" not in mentor["groups"] and mentor["filesystem_access"] == "read-only"
+    assert "audit" not in builder["groups"] and builder["filesystem_access"] == "read-write"
+
+    mentor_tools = set(gc.agent_tool_names(manifest, "quant-mentor"))
+    builder_tools = set(gc.agent_tool_names(manifest, "quant-builder"))
+    orch_tools = set(gc.agent_tool_names(manifest, "quant-orchestrator"))
+    # same rule on both servers
+    assert {"mcp__quant-server__review_log", "mcp__quant_mcp__log_review"} <= mentor_tools
+    assert {"mcp__quant-server__paper_simulation", "mcp__quant_mcp__refresh"}.isdisjoint(mentor_tools)
+    assert {"mcp__quant-server__paper_simulation", "mcp__quant_mcp__export_dataset"} <= builder_tools
+    assert {"mcp__quant-server__review_log", "mcp__quant_mcp__log_review"}.isdisjoint(builder_tools)
+    assert orch_tools >= mentor_tools | builder_tools
 
 
 def test_no_order_sending_tools(server, manifest):
-    names = [fn.__name__ for g in server.TOOLS.values() for fn in g]
+    names = [t for s in manifest["tool_groups"].values() for g in s.values() for t in g]
+    names += [fn.__name__ for g in server.TOOLS.values() for fn in g]
     for pat in manifest["forbidden_tool_patterns"]:
         assert not any(pat in n for n in names), pat
 
 
-def test_generated_configs_are_current():
-    sys.path.insert(0, str(ROOT / "mcp"))
-    import generate_configs as gc
+def test_every_agent_has_identical_grants_in_every_copy(manifest, gc):
+    prefixes = gc.managed_prefixes(manifest)
+    for agent in manifest["agents"]:
+        expected = gc.agent_tool_names(manifest, agent)
+        for path in gc.resolve_agent_files(manifest, agent):
+            if not path.exists():
+                continue  # external workspace absent on this machine
+            text = path.read_text(encoding="utf-8-sig")
+            assert gc.BEGIN in text and gc.END in text, path
+            m = __import__("re").search(r"^tools:\s*(.*)$", text, flags=__import__("re").M)
+            if m:
+                granted = [t.strip() for t in m.group(1).split(",") if any(t.strip().startswith(p) for p in prefixes)]
+                assert granted == expected, path
 
-    manifest = gc.load_manifest()
-    cfg = gc.server_config(manifest)
+
+def test_generated_configs_are_current(manifest, gc):
+    cfg = gc.server_config(manifest, env_style=True)
     assert set(cfg["mcpServers"]) == set(manifest["servers"])
-    assert cfg["mcpServers"]["quant-server"]["args"][0].endswith("mcp/quant_server/server.py")
-    assert "{root}" not in json.dumps(cfg)
-    mentor_tools = gc.agent_tool_names(manifest, "quant-mentor")
-    assert "mcp__quant-server__review_log" in mentor_tools
-    assert "mcp__quant-server__paper_simulation" not in mentor_tools
+    assert cfg["mcpServers"]["quant-server"]["args"][0] == "mcp/quant_server/server.py"
+    assert cfg["mcpServers"]["quant_mcp"]["args"][0].startswith("${QUANT_MERG_ROOT:-")
+    resolved = gc.server_config(manifest, env_style=False)
+    assert "${" not in json.dumps(resolved) and "{merg" not in json.dumps(resolved)
     assert (ROOT / ".mcp.json").exists() and (ROOT / ".agents" / "mcp.json").exists()
     assert gc.main(["--check"]) == 0
 
 
 def test_fastmcp_registration(server):
     pytest.importorskip("mcp")
-    srv = server.build_server()
     import asyncio
 
-    tools = asyncio.run(srv.list_tools())
-    names = {t.name for t in tools}
+    names = {t.name for t in asyncio.run(server.build_server().list_tools())}
     assert names == {fn.__name__ for g in server.TOOLS.values() for fn in g}
     assert len(names) == 13
 

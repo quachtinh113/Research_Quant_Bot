@@ -1,21 +1,40 @@
-# Single source of truth for the dual-agent MCP wiring.
+# Single source of truth for the dual-agent MCP wiring across BOTH hosts and
+# BOTH agent sources:
 #
-#   python mcp/generate_configs.py
+#   Claude Code  : .mcp.json + quant-bot-kit plugin agents (source files in the
+#                  merg workspace, projected by the kit's sync_plugin.py)
+#   Antigravity  : .agents/mcp.json + .agents/agents/*.md
 #
-# regenerates .mcp.json (Claude Code), .agents/mcp.json (Antigravity / generic
-# hosts) and the tool-access section of the two agent definitions. Edit this
-# file, never the generated ones.
+#   python mcp/generate_configs.py            # regenerate everything
+#   python mcp/generate_configs.py --check    # CI drift guard
 #
-# Path placeholders: {root} = repository root, {python} = .venv interpreter.
+# Placeholders: {root} repo root, {python} repo .venv interpreter,
+#               {merg} external merg workspace (env QUANT_MERG_ROOT),
+#               {merg_python} interpreter for quant_mcp (env QUANT_MERG_PYTHON).
+
+external:
+  merg_root_env: QUANT_MERG_ROOT
+  merg_root_default: "D:/05_Quant/merg"
+  merg_python_env: QUANT_MERG_PYTHON
+  merg_python_default: "C:/Users/Pro Trader/AppData/Local/Programs/Python/Python312/python.exe"
 
 servers:
   quant-server:
-    description: Domain tools wrapping orchestration/ (Central Risk Engine, point-in-time store, HRP, paper simulation, audits).
+    description: Domain tools over orchestration/ (Central Risk Engine, point-in-time store, HRP, paper simulation, audits). Lives in this repo.
+    tool_prefix: "mcp__quant-server__"
     command: "{python}"
     args: ["{root}/mcp/quant_server/server.py"]
     env:
       QUANT_REPO_ROOT: "{root}"
       PYTHONPATH: "{root}"
+  quant_mcp:
+    description: Workspace data-lake and knowledge server (catalog, bars, freshness, knowledge.db, reviews.jsonl). External, shared with the merg / ml4t workspaces.
+    tool_prefix: "mcp__quant_mcp__"
+    command: "{merg_python}"
+    args: ["{merg}/quant_mcp/server.py"]
+    env:
+      PYTHONUNBUFFERED: "1"
+      PYTHONIOENCODING: "utf-8"
   filesystem:
     description: Reference server (modelcontextprotocol/servers, src/filesystem). Scoped to the repository root.
     command: npx
@@ -35,37 +54,49 @@ servers:
     env:
       MEMORY_FILE_PATH: "{root}/mcp/memory.jsonl"
 
-# Tool groups exposed by quant-server. "read" tools never mutate the repository
-# or send orders; "build" tools produce artefacts; "audit" tools record verdicts.
-quant_server_tools:
-  read:
-    - risk_size_position
-    - risk_check_hard_stop
-    - portfolio_hrp_weights
-    - pit_list_symbols
-    - pit_read_as_of
-    - telemetry_tail
-    - review_recall
-  build:
-    - paper_simulation
-    - ma_cross_sweep
-    - openalgo_build_order
-  audit:
-    - audit_deflated_sharpe
-    - audit_lookahead_scan
-    - review_log
+# Tool groups per MCP server. "read" never mutates anything or sends orders,
+# "build" produces artefacts, "audit" records verdicts.
+tool_groups:
+  quant-server:
+    read: [risk_size_position, risk_check_hard_stop, portfolio_hrp_weights, pit_list_symbols, pit_read_as_of, telemetry_tail, review_recall]
+    build: [paper_simulation, ma_cross_sweep, openalgo_build_order]
+    audit: [audit_deflated_sharpe, audit_lookahead_scan, review_log]
+  quant_mcp:
+    read: [list_sources, search_catalog, describe_dataset, data_freshness, get_bars, get_series, price_stats, list_case_studies, search_knowledge, recall_reviews]
+    build: [refresh, export_dataset]
+    audit: [log_review]
 
+# One logical agent = several files (one per host / source). Grants are
+# identical in every file so the pair behaves the same everywhere.
 agents:
   quant-builder:
-    file: ".agents/agents/quant-builder.md"
-    servers: [quant-server, filesystem, git, fetch, memory]
-    quant_server_groups: [read, build]
+    files:
+      - ".agents/agents/quant-builder.md"
+      - "{merg}/agent_quant_master/.claude/agents/quant-builder.md"
+    servers: [quant-server, quant_mcp, filesystem, git, fetch, memory]
+    groups: [read, build]
     filesystem_access: read-write
   quant-mentor:
-    file: ".agents/agents/quant-mentor.md"
-    servers: [quant-server, filesystem, git, fetch, memory]
-    quant_server_groups: [read, audit]
+    files:
+      - ".agents/agents/quant-mentor.md"
+      - "{merg}/agent_quant_master/.claude/agents/quant-mentor.md"
+    servers: [quant-server, quant_mcp, filesystem, git, fetch, memory]
+    groups: [read, audit]
     filesystem_access: read-only
+  quant-orchestrator:
+    files:
+      - ".agents/agents/quant-orchestrator.md"
+      - "{merg}/agent_quant_master/.claude/agents/quant-orchestrator.md"
+    servers: [quant-server, quant_mcp, filesystem, git, fetch, memory]
+    groups: [read, build, audit]
+    filesystem_access: read-write
+    note: Main-thread manager; the only agent that dispatches quant-builder and quant-mentor.
+
+# After generation, project the merg source agents into the Claude Code plugin,
+# ~/.claude/agents and ~/.antigravity-ide/agents.
+post_generate:
+  - command: "{merg_python}"
+    args: ["{merg}/quant-bot-kit-marketplace/plugins/quant-bot-kit/sync_plugin.py"]
 
 # Never exposed through MCP, by design (workspace guard: no order_send).
 forbidden_tool_patterns:

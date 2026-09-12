@@ -1,7 +1,7 @@
 ---
 name: quant-builder
 description: "Autonomous strategy engineering, alpha mining, execution modeling, risk allocation, parameter sweeps, and live deployment pipeline across vectorbt, Qlib, LEAN, NautilusTrader, and ML4T. Use proactively whenever the user wants to build, scaffold, optimize, code, risk-manage, or deploy a quantitative trading strategy or bot."
-tools: Read, Grep, Glob, Bash, Edit, Write, NotebookEdit, Skill, mcp__quant_mcp__search_catalog, mcp__quant_mcp__describe_dataset, mcp__quant_mcp__get_bars, mcp__quant_mcp__get_series, mcp__quant_mcp__price_stats, mcp__quant_mcp__data_freshness, mcp__quant_mcp__export_dataset, mcp__quant_mcp__refresh, mcp__quant_mcp__search_knowledge, mcp__quant_mcp__log_review, mcp__quant_mcp__recall_reviews, mcp__quant-server__risk_size_position, mcp__quant-server__risk_check_hard_stop, mcp__quant-server__portfolio_hrp_weights, mcp__quant-server__pit_list_symbols, mcp__quant-server__pit_read_as_of, mcp__quant-server__telemetry_tail, mcp__quant-server__review_recall, mcp__quant-server__paper_simulation, mcp__quant-server__ma_cross_sweep, mcp__quant-server__openalgo_build_order
+tools: Read, Grep, Glob, Bash, Edit, Write, NotebookEdit, Skill, mcp__quant-server__risk_size_position, mcp__quant-server__risk_check_hard_stop, mcp__quant-server__portfolio_hrp_weights, mcp__quant-server__pit_list_symbols, mcp__quant-server__pit_read_as_of, mcp__quant-server__telemetry_tail, mcp__quant-server__review_recall, mcp__quant-server__paper_simulation, mcp__quant-server__ma_cross_sweep, mcp__quant-server__openalgo_build_order, mcp__quant_mcp__list_sources, mcp__quant_mcp__search_catalog, mcp__quant_mcp__describe_dataset, mcp__quant_mcp__data_freshness, mcp__quant_mcp__get_bars, mcp__quant_mcp__get_series, mcp__quant_mcp__price_stats, mcp__quant_mcp__list_case_studies, mcp__quant_mcp__search_knowledge, mcp__quant_mcp__recall_reviews, mcp__quant_mcp__refresh, mcp__quant_mcp__export_dataset
 model: sonnet
 ---
 
@@ -120,17 +120,21 @@ When delivering strategy code or backtest results:
 
 ## MCP TOOL ACCESS
 
-Filesystem access: **read-write**. Servers: quant-server, filesystem, git, fetch, memory.
+Filesystem access: **read-write**. Servers: quant-server, quant_mcp, filesystem, git, fetch, memory.
 
 | Server | Tools available to this agent |
 |---|---|
 | quant-server (read) | `risk_size_position`, `risk_check_hard_stop`, `portfolio_hrp_weights`, `pit_list_symbols`, `pit_read_as_of`, `telemetry_tail`, `review_recall` |
 | quant-server (build) | `paper_simulation`, `ma_cross_sweep`, `openalgo_build_order` |
+| quant_mcp (read) | `list_sources`, `search_catalog`, `describe_dataset`, `data_freshness`, `get_bars`, `get_series`, `price_stats`, `list_case_studies`, `search_knowledge`, `recall_reviews` |
+| quant_mcp (build) | `refresh`, `export_dataset` |
 | filesystem | Reference server (modelcontextprotocol/servers, src/filesystem). Scoped to the repository root. |
 | git | Reference server (src/git). History, diff and blame over the repository and its submodules. |
 | fetch | Reference server (src/fetch). Read library documentation and papers. |
 | memory | Reference server (src/memory). Knowledge graph of reviews, decisions and open findings. |
 
 Never available through MCP to any agent: `*place_order*`, `*send_order*`, `*create_order*`, `*cancel_order*`. Live orders go through the Central Risk Engine and a human-approved deployment gate only.
+
+Generated from `mcp/manifest.yaml` in the Research_Quant_Bot repository; identical grants are written to every copy of this agent (repo `.agents/`, quant-bot-kit plugin, Antigravity).
 
 <!-- AUTOGEN:MCP-TOOL-ACCESS:END -->

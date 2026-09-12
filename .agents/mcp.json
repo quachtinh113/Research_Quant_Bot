@@ -10,6 +10,16 @@
         "PYTHONPATH": "."
       }
     },
+    "quant_mcp": {
+      "command": "C:/Users/Pro Trader/AppData/Local/Programs/Python/Python312/python.exe",
+      "args": [
+        "D:/05_Quant/merg/quant_mcp/server.py"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1",
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
     "filesystem": {
       "command": "npx",
       "args": [
